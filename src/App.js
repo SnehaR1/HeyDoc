@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './Components/Home';
 import Login from './Components/Login';
 import Registration from './Components/Registration';
-import PasswordRecovery from './Components/PasswordRecovery';
 import AdminLogin from './Components/Admin/AdminLogin';
 import AdminDashboard from './Components/Admin/AdminDashboard';
 import AdminUsers from './Components/Admin/AdminUsers';
@@ -33,7 +32,7 @@ function App() {
           <Route path='/addDoctor' element={<AddDoctor />} />
           <Route path='/doctorlogin' element={<DoctorLogin />} />
           <Route path='/requests' element={<Requests />} />
-          <Route path='/set_password' element={<SetPassword />} />
+          <Route path='/set_password/:id' element={<SetPassword />} />
 
         </Routes>
       </Router>

@@ -5,6 +5,8 @@ import AdminNavBar from './AdminNavBar'
 
 function Requests() {
     const [requests, setRequests] = useState([])
+
+    const [refresh, setRefresh] = useState(false)
     useEffect(() => {
         const fetchRequests = async () => {
             try {
@@ -20,7 +22,20 @@ function Requests() {
         }
         fetchRequests()
 
-    }, [])
+    }, [refresh])
+
+    const handleEdit = async (id, action) => {
+        try {
+            const res = await doctorapi.delete(`edit_requests/${id}/`, { data: { message: action } })
+            console.log(action)
+            console.log(res)
+            setRefresh(!refresh)
+
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
     return (
         <div>
             <AdminNavBar />
@@ -40,7 +55,7 @@ function Requests() {
                             <th scope="col" class="px-24 py-3">
                                 Message
                             </th>
-                            <th scope="col" class=" px-6 py-3">
+                            <th scope="col" class=" px-24 py-3 ">
                                 Action
                             </th>
                         </tr>
@@ -59,12 +74,16 @@ function Requests() {
                                         {request.message}
 
                                     </td>
-                                    <td className="px-6 py-4">
-                                        <div>
+                                    <td className="px-12 py-4">
+                                        <div >
 
+                                            <button onClick={() => handleEdit(request.id, "accept")} name="message" value="accept" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mr-3">
+                                                Accept
+                                            </button>
+                                            <button onClick={() => handleEdit(request.id, "reject")} name="message" value="reject" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">
+                                                Reject
+                                            </button>
                                         </div>
-                                        <button type="button" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" >Green</button>
-                                        <button type="button" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 ml-4 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Red</button>
                                     </td>
 
                                 </tr>

@@ -9,6 +9,8 @@ function DoctorLogin() {
             const response = await doctorapi.post('doctor_verification/', reqInfo);
 
             alert(response.data.message)
+            setRequesting(false)
+
 
 
         } catch (error) {
